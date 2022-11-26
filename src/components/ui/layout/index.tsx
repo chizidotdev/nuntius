@@ -18,7 +18,7 @@ const Layout = ({ children, title }: Props) => {
       </Head>
 
       <div className="flex min-h-screen items-center justify-center bg-gradient-to-b from-blue to-dark px-5">
-        <main className="min-h-[90vh] max-w-md rounded bg-gray">
+        <main className="flex min-h-[90vh] max-w-md flex-col items-center gap-7 rounded bg-gray px-5 py-10 sm:py-16 sm:px-10">
           {children}
         </main>
       </div>
