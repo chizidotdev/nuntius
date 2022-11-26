@@ -17,7 +17,7 @@ const Layout = ({ children, title }: Props) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className="flex min-h-screen items-center justify-center bg-gradient-to-b from-blue to-dark">
+      <div className="flex min-h-screen items-center justify-center bg-gradient-to-b from-blue to-dark px-5">
         <main className="min-h-[90vh] max-w-md rounded bg-gray">
           {children}
         </main>
