@@ -1,0 +1,13 @@
+.textarea {
+  @apply relative w-full;
+}
+
+.textarea::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -0.5rem;
+  height: 1px;
+
+  @apply w-full bg-liver;
+}
