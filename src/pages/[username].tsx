@@ -8,10 +8,12 @@ import type {
   NextPage,
 } from "next";
 import React, { useState } from "react";
+import { trpc } from "src/utils/trpc";
 
 const Message: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
 > = ({ username }) => {
+  const { data: user } = trpc.user.findByUsername.useQuery({ username });
   const [value, setValue] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {

@@ -1,9 +1,10 @@
-import { useSession } from "next-auth/react";
+import type { Session } from "next-auth";
 import React, { createContext, useContext } from "react";
 import { trpc } from "src/utils/trpc";
 
 type TUserProps = {
   children: React.ReactNode;
+  session: Session | null;
 };
 
 type UserContextProps = {
@@ -14,9 +15,8 @@ const UserContext = createContext<UserContextProps>({
   user: null,
 });
 
-export const UserProvider = ({ children }: TUserProps) => {
-  const { data: session } = useSession();
-  const { data: user } = trpc.user.getUser.useQuery({
+export const UserProvider = ({ children, session }: TUserProps) => {
+  const { data: user } = trpc.user.findById.useQuery({
     id: session?.user?.id || "",
   });
 
