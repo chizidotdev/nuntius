@@ -1,6 +1,5 @@
-import type { NextPage } from "next";
-import Layout from "@ui/layout";
-import Button from "@ui/button";
+import type { GetServerSideProps, NextPage } from "next";
+import { Layout, Button } from "@components/ui";
 import { signIn, useSession } from "next-auth/react";
 
 const Home: NextPage = () => {
