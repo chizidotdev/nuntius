@@ -4,11 +4,14 @@ import { SessionProvider } from "next-auth/react";
 import { trpc } from "../utils/trpc";
 
 import "../styles/globals.css";
+import { UserProvider } from "store/user-store";
 
 const MyApp: AppType = ({ Component, pageProps }) => {
   return (
     <SessionProvider>
-      <Component {...pageProps} />
+      <UserProvider>
+        <Component {...pageProps} />
+      </UserProvider>
     </SessionProvider>
   );
 };
