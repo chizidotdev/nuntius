@@ -18,7 +18,8 @@
     "baseUrl": ".",
     "paths": {
       "@ui/*": ["./src/components/ui/*"],
-      "@components/*": ["./src/components/*"]
+      "@components/*": ["./src/components/*"],
+      "@router/*": ["./src/server/trpc/router/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.cjs", "**/*.mjs"],
