@@ -1,8 +1,12 @@
-import { type NextPage } from "next";
+import type { NextPage } from "next";
 import Layout from "@ui/layout";
 import Button from "@ui/button";
+import { signIn, useSession } from "next-auth/react";
 
 const Home: NextPage = () => {
+  const session = useSession();
+  console.log({ session });
+
   return (
     <Layout title="Home">
       <h1 className="text-4xl font-bold">chizi profile</h1>
@@ -22,7 +26,7 @@ const Home: NextPage = () => {
         <Button>share my profile</Button>
       </div>
 
-      <div className="justify-self-end">
+      <div onClick={() => signIn()} className="justify-self-end">
         <Button intent="secondary">settings</Button>
       </div>
     </Layout>
@@ -30,3 +34,11 @@ const Home: NextPage = () => {
 };
 
 export default Home;
+
+// export const getServerSideProps: GetServerSideProps = async ()=>{
+//     const session = await getServerAuthSession(context)
+//   if (!session) return {redirect: '/login'}
+//   return {
+//     props: {}
+//   }
+// }

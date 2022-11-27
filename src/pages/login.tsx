@@ -2,12 +2,25 @@ import Heading from "@components/heading";
 import Button from "@ui/button";
 import Input from "@ui/input";
 import Layout from "@ui/layout";
+import { signIn } from "next-auth/react";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 
 const Login = () => {
-  const handleSubmit = (e: React.FormEvent) => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    console.log({ username, password });
+
+    const res = await signIn("credentials", {
+      username,
+      password,
+      callbackUrl: "/",
+      // redirect: false,
+    });
+    console.log(res);
   };
 
   return (
@@ -19,11 +32,18 @@ const Login = () => {
       </p>
 
       <form onSubmit={handleSubmit} className="mt-5 flex w-full flex-col gap-5">
-        <Input name="username" placeholder="Enter your username" />
+        <Input
+          name="username"
+          placeholder="Enter your username"
+          defaultValue={username}
+          onChange={(e) => setUsername(e.target.value)}
+        />
         <Input
           name="password"
           placeholder="Enter your password"
           type="password"
+          defaultValue={password}
+          onChange={(e) => setPassword(e.target.value)}
         />
         <Button>Login</Button>
       </form>
