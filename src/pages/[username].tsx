@@ -7,22 +7,39 @@ import type {
   InferGetServerSidePropsType,
   NextPage,
 } from "next";
+import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { trpc } from "src/utils/trpc";
 
 const Message: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
 > = ({ username }) => {
-  const { data: user } = trpc.user.findByUsername.useQuery({ username });
+  const { data: user, isLoading } = trpc.user.findByUsername.useQuery({
+    username,
+  });
+  const { mutate: createMessage } = trpc.message.create.useMutation();
+  const router = useRouter();
   const [value, setValue] = useState("");
+
+  if (!isLoading && !user) {
+    router.push("/");
+    return null;
+  }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log({ value });
+    if (!user) return;
+
+    const message = createMessage({
+      text: value,
+      userId: user.id,
+    });
+
+    console.log({ message });
   };
 
   return (
-    <Layout title="Send [user] a message">
+    <Layout title={`Send ${username} a message`}>
       <Heading>Say Something...</Heading>
 
       <form onSubmit={handleSubmit} className="flex w-full flex-col gap-2">
