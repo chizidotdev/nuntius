@@ -1,5 +1,5 @@
 import NextAuth, { type NextAuthOptions } from "next-auth";
-import CredentialsProvider from "next-auth/providers/credentials";
+import GoogleProvider from "next-auth/providers/google";
 // Prisma adapter for NextAuth, optional and can be removed
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 
@@ -8,10 +8,6 @@ import { env } from "src/env/server.mjs";
 
 export const authOptions: NextAuthOptions = {
   // Include user.id on session
-  session: {
-    strategy: "jwt",
-  },
-  secret: env.NEXTAUTH_SECRET,
   callbacks: {
     async session({ session, user }) {
       if (session.user) {
@@ -19,39 +15,12 @@ export const authOptions: NextAuthOptions = {
       }
       return session;
     },
-    // async jwt({ token, user }) {
-    //   if (user) {
-    //     token.sub = user.id;
-    //   }
-
-    //   return token;
-    // },
   },
   adapter: PrismaAdapter(prisma),
   providers: [
-    CredentialsProvider({
-      name: "Credentials",
-      credentials: {
-        username: { label: "Username", type: "text", placeholder: "jsmith" },
-        password: { label: "Password", type: "password" },
-      },
-      async authorize(credentials) {
-        if (!credentials) return null;
-
-        console.log("checking");
-
-        const { username, password } = credentials;
-        const user = await prisma.user.findUnique({
-          where: {
-            username,
-          },
-        });
-        if (!user) return null;
-
-        if (user.password !== password) return null;
-
-        return user;
-      },
+    GoogleProvider({
+      clientId: env.GOOGLE_CLIENT_ID,
+      clientSecret: env.GOOGLE_CLIENT_SECRET,
     }),
   ],
   // pages: {
