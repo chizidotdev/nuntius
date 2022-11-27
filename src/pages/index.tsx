@@ -1,14 +1,15 @@
 import type { GetServerSideProps, NextPage } from "next";
 import { Layout, Button } from "@components/ui";
-import { signIn, useSession } from "next-auth/react";
+import { getServerAuthSession } from "src/server/common/get-server-auth-session";
+import type { Session } from "next-auth";
+import { useUser } from "src/store/user-store";
 
 const Home: NextPage = () => {
-  const session = useSession();
-  console.log({ session });
+  const { user } = useUser();
 
   return (
     <Layout title="Home">
-      <h1 className="text-4xl font-bold">chizi profile</h1>
+      <h1 className="text-4xl font-bold">{user?.username} profile</h1>
 
       <div className="flex flex-col items-center">
         <p>--http://profile-link/chizi</p>
@@ -25,7 +26,7 @@ const Home: NextPage = () => {
         <Button>share my profile</Button>
       </div>
 
-      <div onClick={() => signIn()} className="justify-self-end">
+      <div className="justify-self-end">
         <Button intent="secondary">settings</Button>
       </div>
     </Layout>
@@ -34,10 +35,15 @@ const Home: NextPage = () => {
 
 export default Home;
 
-// export const getServerSideProps: GetServerSideProps = async ()=>{
-//     const session = await getServerAuthSession(context)
-//   if (!session) return {redirect: '/login'}
-//   return {
-//     props: {}
-//   }
-// }
+export const getServerSideProps: GetServerSideProps<{
+  session: Session;
+}> = async (context) => {
+  const session = await getServerAuthSession(context);
+
+  if (!session || !session.user)
+    return { redirect: { destination: "/login", permanent: false } };
+
+  return {
+    props: { session: session },
+  };
+};
