@@ -16,14 +16,14 @@ const Home: NextPage = () => {
     push("/change-username?mode=undefined");
   }
 
-  const profileUrl = `http://localhost:3000/message/${user?.username}`;
+  const profileUrl = `https://nuntius.chizi.dev/message/${user?.username}`;
 
   const handleCopy = () => {
     navigator.clipboard.writeText(profileUrl);
     alert("Profile Link Copied to Clipboard");
   };
 
-  const whatsappLink = `https://api.whatsapp.com/send?text=%F0%9F%92%80Hey%21+Write+a+%2Asecret+anonymous+message%2A+for+me..+%F0%9F%98%89+I+%2Awon%27t+know%2A+who+wrote+it..+%F0%9F%92%80%F0%9F%A4%8C+%F0%9F%91%89+%24%7BprofileUrl%7D`;
+  const whatsappLink = `https://api.whatsapp.com/send?text=%F0%9F%92%80Hey%21+Write+a+%2Asecret+anonymous+message%2A+for+me..+%F0%9F%98%89+I+%2Awon%27t+know%2A+who+wrote+it..+%F0%9F%92%80%F0%9F%A4%8C+%F0%9F%91%89+${profileUrl}`;
 
   return (
     <Layout title="Home">
