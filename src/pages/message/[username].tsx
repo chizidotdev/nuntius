@@ -1,5 +1,6 @@
 import Heading from "@components/heading";
 import Button from "@ui/button";
+import Container from "@ui/container";
 import Layout from "@ui/layout";
 import Textarea from "@ui/textarea";
 import type {
@@ -7,6 +8,7 @@ import type {
   InferGetServerSidePropsType,
   NextPage,
 } from "next";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { trpc } from "src/utils/trpc";
@@ -20,6 +22,7 @@ const Message: NextPage<
   const { mutate: createMessage } = trpc.message.create.useMutation();
   const router = useRouter();
   const [value, setValue] = useState("");
+  const [showLogin, setShowLogin] = useState(false);
 
   if (!isLoading && !user) {
     router.push("/");
@@ -30,16 +33,33 @@ const Message: NextPage<
     e.preventDefault();
     if (!user) return;
 
-    const message = createMessage({
-      text: value,
-      userId: user.id,
-    });
-
-    console.log({ message });
+    createMessage(
+      {
+        text: value,
+        userId: user.id,
+      },
+      {
+        onSuccess() {
+          setValue("");
+          setShowLogin(true);
+          // router.push('')
+        },
+      }
+    );
   };
 
   return (
     <Layout title={`Send ${username} a message`}>
+      {showLogin && (
+        <Container>
+          Your message has been sent. Now it&apos;s your turn to dare your
+          friends to tell you what they think about you!
+          <Button intent="link">
+            <Link href="/login">Click here to Login</Link>
+          </Button>
+        </Container>
+      )}
+
       <Heading>Say Something...</Heading>
 
       <form onSubmit={handleSubmit} className="flex w-full flex-col gap-2">
@@ -56,8 +76,8 @@ const Message: NextPage<
         <Button>Send Message</Button>
       </form>
 
-      <p className="mt-10">
-        Say what do you think about {username} or Leave a feedback for &nbsp;
+      <p className="mt-8">
+        Say what you think about {username} or Leave a feedback for&nbsp;
         {username} anonymously using the form above... Thank You!!👌
       </p>
     </Layout>
