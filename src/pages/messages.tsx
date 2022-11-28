@@ -1,15 +1,15 @@
 import Heading from "@components/heading";
 import MessageCard from "@components/message-card";
-import Layout from "@ui/layout";
+import { Button, Layout, Container } from "@components/ui";
 import type { GetServerSideProps } from "next";
 import type { Session } from "next-auth";
+import Link from "next/link";
 import React from "react";
 import { getServerAuthSession } from "src/server/common/get-server-auth-session";
 import { useUser } from "src/store/user-store";
 
 const Messages = () => {
   const { user } = useUser();
-  console.log(user);
 
   return (
     <Layout title="My Messages">
@@ -18,11 +18,26 @@ const Messages = () => {
         👇 Scroll 👇 down to check out the messages that you have received
       </p>
 
-      <ul className="w-full">
-        {user?.messages.map((message) => (
-          <MessageCard key={message.id} message={message} />
-        ))}
-      </ul>
+      {user?.messages.length === 0 && (
+        <Container>
+          Oops! 😅 No one has sent you a message! Share your profile link and
+          check back later!
+        </Container>
+      )}
+
+      {user?.messages.length !== 0 && (
+        <ul className="w-full">
+          {user?.messages.map((message) => (
+            <MessageCard key={message.id} message={message} />
+          ))}
+        </ul>
+      )}
+
+      <div className="justify-self-end">
+        <Button>
+          <Link href="/">Go Back</Link>
+        </Button>
+      </div>
     </Layout>
   );
 };

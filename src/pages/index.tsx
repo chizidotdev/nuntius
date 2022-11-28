@@ -4,9 +4,12 @@ import { getServerAuthSession } from "src/server/common/get-server-auth-session"
 import type { Session } from "next-auth";
 import { useUser } from "src/store/user-store";
 import { IoMdCopy } from "react-icons/io";
+import { useRouter } from "next/router";
 
 const Home: NextPage = () => {
+  const router = useRouter();
   const { user } = useUser();
+
   const profileUrl = `http://localhost:3000/${user?.username}`;
 
   const handleCopy = () => {
@@ -38,7 +41,7 @@ const Home: NextPage = () => {
       </div>
 
       <div className="flex flex-col gap-2">
-        <Button>view Messages</Button>
+        <Button onClick={() => router.push("/messages")}>view Messages</Button>
         <Button>share my profile</Button>
       </div>
 
