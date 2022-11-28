@@ -1,13 +1,13 @@
 import Heading from "@components/heading";
+import Logo from "@components/logo";
 import Button from "@ui/button";
 import Layout from "@ui/layout";
 import { signIn } from "next-auth/react";
-import Image from "next/image";
 
 const Login = () => {
   return (
     <Layout title="Login">
-      <Image src="/bubble-chat.png" alt="" width={100} height={100} />
+      <Logo />
       <Heading>Login</Heading>
       <p className="text-center">
         Recieve anonymous compliments from your friends and send anonymous
