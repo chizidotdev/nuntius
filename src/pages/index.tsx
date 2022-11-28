@@ -16,7 +16,7 @@ const Home: NextPage = () => {
     push("/change-username?mode=undefined");
   }
 
-  const profileUrl = `https://nuntius-sepia.vercel.app/message/${user?.username}`;
+  const profileUrl = `https://nuntius-c.vercel.app/message/${user?.username}`;
 
   const handleCopy = () => {
     navigator.clipboard.writeText(profileUrl);
