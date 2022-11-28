@@ -8,13 +8,14 @@ type Props = VariantProps<typeof buttonStyles> & {
 };
 
 const buttonStyles = cva(
-  "font-semibold border rounded-2xl transition-all ease-linear duration-300 text-white border-none",
+  "font-semibold border rounded-2xl transition-all ease-linear duration-300 border-none",
   {
     variants: {
       intent: {
-        primary: "bg-gradient-to-r from-liver to-blue hover:bg-gradient-to-br",
-        secondary: "bg-liver border border-liver hover:bg-gray-100",
-        link: "",
+        primary:
+          "bg-gradient-to-r from-liver to-blue hover:bg-gradient-to-br text-white",
+        secondary: "bg-liver border border-liver hover:bg-gray-100 text-white",
+        link: "text-liver underline px-0 underline-offset-2",
       },
       size: {
         small: ["text-sm", "py-1", "px-7"],
