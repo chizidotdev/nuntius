@@ -1,5 +1,17 @@
+import { Prisma } from "@prisma/client";
+import type { inferProcedureOutput } from "@trpc/server";
 import { z } from "zod";
 import { router, publicProcedure } from "../trpc";
+
+const defaultUserSelect = Prisma.validator<Prisma.UserSelect>()({
+  id: true,
+  name: true,
+  username: true,
+  email: true,
+  messages: true,
+});
+
+export type TUser = inferProcedureOutput<typeof userRouter["findById"]>;
 
 export const userRouter = router({
   findById: publicProcedure
@@ -9,6 +21,7 @@ export const userRouter = router({
         where: {
           id: input.id,
         },
+        select: defaultUserSelect,
       });
 
       return user;

@@ -1,6 +1,12 @@
 import { z } from "zod";
 import { router, publicProcedure } from "../trpc";
 
+export type TMessage = {
+  text: string;
+  createdAt: Date;
+  updatedAt: Date;
+};
+
 export const messageRouter = router({
   create: publicProcedure
     .input(z.object({ userId: z.string(), text: z.string().min(3).max(253) }))
