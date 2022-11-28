@@ -10,16 +10,14 @@ const Home: NextPage = () => {
   const router = useRouter();
   const { user } = useUser();
 
-  const profileUrl = `http://localhost:3000/${user?.username}`;
+  const profileUrl = `http://localhost:3000/message/${user?.username}`;
 
   const handleCopy = () => {
     navigator.clipboard.writeText(profileUrl);
     alert("Profile Link Copied to Clipboard");
   };
 
-  // const handleShare = () => {
-  //   `https://api.whatsapp.com/send?text=Write%20a%20*secret%20anonymous%20message*%20for%20me..%20%F0%9F%98%89%20I%20*won%27t%20know*%20who%20wrote%20it..%20%F0%9F%98%82%E2%9D%A4%20%F0%9F%91%89%20${profileUrl}`;
-  // };
+  const whatsappLink = `https://api.whatsapp.com/send?text=%F0%9F%92%80Hey%21+Write+a+%2Asecret+anonymous+message%2A+for+me..+%F0%9F%98%89+I+%2Awon%27t+know%2A+who+wrote+it..+%F0%9F%92%80%F0%9F%A4%8C+%F0%9F%91%89+%24%7BprofileUrl%7D`;
 
   return (
     <Layout title="Home">
@@ -42,7 +40,9 @@ const Home: NextPage = () => {
 
       <div className="flex flex-col gap-2">
         <Button onClick={() => router.push("/messages")}>view Messages</Button>
-        <Button>share my profile</Button>
+        <Button>
+          <a href={whatsappLink}>share on whatsapp</a>
+        </Button>
       </div>
 
       <div className="justify-self-end">
