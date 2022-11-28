@@ -6,7 +6,7 @@ import { useUser } from "src/store/user-store";
 
 const Messages = () => {
   const { user, usernameIsUndefined } = useUser();
-  const { push, back } = useRouter();
+  const { push } = useRouter();
 
   if (usernameIsUndefined) {
     push("/change-username?mode=undefined");
@@ -27,7 +27,7 @@ const Messages = () => {
       )}
 
       {user?.messages.length !== 0 && (
-        <ul className="flex w-full flex-col gap-1">
+        <ul className="flex w-full flex-col gap-3">
           {user?.messages.map((message) => (
             <MessageCard key={message.id} message={message} />
           ))}
@@ -35,7 +35,7 @@ const Messages = () => {
       )}
 
       <div className="justify-self-end">
-        <Button onClick={() => back()}>Go Back</Button>
+        <Button onClick={() => push("/")}>Go Back</Button>
       </div>
     </Layout>
   );

@@ -1,6 +1,6 @@
 import type { TUser } from "@router/user";
 import type { Session } from "next-auth";
-import React, { createContext, useContext } from "react";
+import React, { createContext, useContext, useMemo } from "react";
 import { trpc } from "src/utils/trpc";
 
 type TUserProps = {
@@ -19,11 +19,16 @@ const UserContext = createContext<UserContextProps>({
 });
 
 export const UserProvider = ({ children, session }: TUserProps) => {
-  const { data: user, isLoading } = trpc.user.findById.useQuery({
-    id: session?.user?.id || "",
-  });
+  const { data: user, isLoading } = trpc.user.findById.useQuery(
+    {
+      id: session?.user?.id || "",
+    },
+    { refetchOnWindowFocus: false }
+  );
   const usernameIsUndefined =
     typeof window !== "undefined" && !isLoading && !user?.username;
+
+  useMemo(() => user?.messages.reverse(), [user]);
 
   return (
     <UserContext.Provider value={{ user, usernameIsUndefined }}>

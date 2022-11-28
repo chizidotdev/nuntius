@@ -7,6 +7,7 @@ import { FaWhatsapp } from "react-icons/fa";
 import { HiOutlineArrowLongRight } from "react-icons/hi2";
 import { IoMdCopy } from "react-icons/io";
 import { useRouter } from "next/router";
+import { signOut } from "next-auth/react";
 
 const Home: NextPage = () => {
   const { user, usernameIsUndefined } = useUser();
@@ -16,7 +17,7 @@ const Home: NextPage = () => {
     push("/change-username?mode=undefined");
   }
 
-  const profileUrl = `https://nuntius-c.vercel.app/message/${user?.username}`;
+  const profileUrl = `https://nuntius.chizi.dev/message/${user?.username}`;
 
   const handleCopy = () => {
     navigator.clipboard.writeText(profileUrl);
@@ -68,9 +69,12 @@ const Home: NextPage = () => {
         </Button>
       </div>
 
-      <div className="justify-self-end">
+      <div className="flex flex-col gap-2 justify-self-end">
         <Button intent="secondary">
-          <Link href="/change-username">settings</Link>
+          <Link href="/change-username">Change Username</Link>
+        </Button>
+        <Button intent="secondary" onClick={() => signOut()}>
+          Signout
         </Button>
       </div>
     </Layout>
