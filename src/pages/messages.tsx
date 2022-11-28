@@ -1,11 +1,7 @@
 import Heading from "@components/heading";
 import MessageCard from "@components/message-card";
-import { Button, Layout, Container } from "@components/ui";
-import type { GetServerSideProps } from "next";
-import type { Session } from "next-auth";
+import { Button, Container, Layout } from "@components/ui";
 import Link from "next/link";
-import React from "react";
-import { getServerAuthSession } from "src/server/common/get-server-auth-session";
 import { useUser } from "src/store/user-store";
 
 const Messages = () => {
@@ -44,15 +40,4 @@ const Messages = () => {
 
 export default Messages;
 
-export const getServerSideProps: GetServerSideProps<{
-  session: Session;
-}> = async (context) => {
-  const session = await getServerAuthSession(context);
-
-  if (!session || !session.user)
-    return { redirect: { destination: "/login", permanent: false } };
-
-  return {
-    props: { session: session },
-  };
-};
+export { getServerSideProps } from "@store/global";

@@ -24,7 +24,7 @@ const Layout = ({ children, title }: Props) => {
       </div>
 
       <footer className="flex flex-col items-center justify-center bg-dark py-6 text-sm text-white">
-        <p>&copy; {currentYear} - My App</p>
+        <p>&copy; {currentYear} - Nuntius</p>
         <p>
           Built by{" "}
           <a

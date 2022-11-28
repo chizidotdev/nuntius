@@ -1,13 +1,13 @@
-import type { GetServerSideProps, NextPage } from "next";
-import { Layout, Button } from "@components/ui";
-import { getServerAuthSession } from "src/server/common/get-server-auth-session";
-import type { Session } from "next-auth";
-import { useUser } from "src/store/user-store";
+import { Button, Layout } from "@components/ui";
+import type { NextPage } from "next";
+import { useUser } from "@store/user-store";
+
+import Link from "next/link";
+import { FaWhatsapp } from "react-icons/fa";
+import { HiOutlineArrowLongRight } from "react-icons/hi2";
 import { IoMdCopy } from "react-icons/io";
-import { useRouter } from "next/router";
 
 const Home: NextPage = () => {
-  const router = useRouter();
   const { user } = useUser();
 
   const profileUrl = `http://localhost:3000/message/${user?.username}`;
@@ -38,10 +38,27 @@ const Home: NextPage = () => {
         </p>
       </div>
 
-      <div className="flex flex-col gap-2">
-        <Button onClick={() => router.push("/messages")}>view Messages</Button>
+      <div className="mt-4 flex flex-col gap-2">
         <Button>
-          <a href={whatsappLink}>share on whatsapp</a>
+          <Link href="/messages">
+            <div className="inline-flex items-center gap-2">
+              View Messages
+              <span className="mt-1">
+                <HiOutlineArrowLongRight />
+              </span>
+            </div>
+          </Link>
+        </Button>
+
+        <Button>
+          <div className="flex items-center gap-2">
+            <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
+              Share on Whatsapp
+            </a>
+            <span className="mt-1">
+              <FaWhatsapp />
+            </span>
+          </div>
         </Button>
       </div>
 
@@ -54,15 +71,4 @@ const Home: NextPage = () => {
 
 export default Home;
 
-export const getServerSideProps: GetServerSideProps<{
-  session: Session;
-}> = async (context) => {
-  const session = await getServerAuthSession(context);
-
-  if (!session || !session.user)
-    return { redirect: { destination: "/login", permanent: false } };
-
-  return {
-    props: { session: session },
-  };
-};
+export { getServerSideProps } from "@store/global";

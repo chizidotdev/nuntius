@@ -19,7 +19,8 @@
     "paths": {
       "@ui/*": ["./src/components/ui/*"],
       "@components/*": ["./src/components/*"],
-      "@router/*": ["./src/server/trpc/router/*"]
+      "@router/*": ["./src/server/trpc/router/*"],
+      "@store/*": ["./src/store/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.cjs", "**/*.mjs"],
