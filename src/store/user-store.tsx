@@ -10,19 +10,25 @@ type TUserProps = {
 
 type UserContextProps = {
   user?: TUser;
+  usernameIsUndefined: boolean;
 };
 
 const UserContext = createContext<UserContextProps>({
   user: null,
+  usernameIsUndefined: false,
 });
 
 export const UserProvider = ({ children, session }: TUserProps) => {
-  const { data: user } = trpc.user.findById.useQuery({
+  const { data: user, isLoading } = trpc.user.findById.useQuery({
     id: session?.user?.id || "",
   });
+  const usernameIsUndefined =
+    typeof window !== "undefined" && !isLoading && !user?.username;
 
   return (
-    <UserContext.Provider value={{ user }}>{children}</UserContext.Provider>
+    <UserContext.Provider value={{ user, usernameIsUndefined }}>
+      {children}
+    </UserContext.Provider>
   );
 };
 

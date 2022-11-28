@@ -6,9 +6,15 @@ import Link from "next/link";
 import { FaWhatsapp } from "react-icons/fa";
 import { HiOutlineArrowLongRight } from "react-icons/hi2";
 import { IoMdCopy } from "react-icons/io";
+import { useRouter } from "next/router";
 
 const Home: NextPage = () => {
-  const { user } = useUser();
+  const { user, usernameIsUndefined } = useUser();
+  const { push } = useRouter();
+
+  if (usernameIsUndefined) {
+    push("/change-username?mode=undefined");
+  }
 
   const profileUrl = `http://localhost:3000/message/${user?.username}`;
 
@@ -63,7 +69,9 @@ const Home: NextPage = () => {
       </div>
 
       <div className="justify-self-end">
-        <Button intent="secondary">settings</Button>
+        <Button intent="secondary">
+          <Link href="/change-username">settings</Link>
+        </Button>
       </div>
     </Layout>
   );

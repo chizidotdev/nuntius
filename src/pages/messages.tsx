@@ -1,11 +1,16 @@
 import Heading from "@components/heading";
 import MessageCard from "@components/message-card";
 import { Button, Container, Layout } from "@components/ui";
-import Link from "next/link";
+import { useRouter } from "next/router";
 import { useUser } from "src/store/user-store";
 
 const Messages = () => {
-  const { user } = useUser();
+  const { user, usernameIsUndefined } = useUser();
+  const { push, back } = useRouter();
+
+  if (usernameIsUndefined) {
+    push("/change-username?mode=undefined");
+  }
 
   return (
     <Layout title="My Messages">
@@ -22,7 +27,7 @@ const Messages = () => {
       )}
 
       {user?.messages.length !== 0 && (
-        <ul className="w-full">
+        <ul className="flex w-full flex-col gap-1">
           {user?.messages.map((message) => (
             <MessageCard key={message.id} message={message} />
           ))}
@@ -30,9 +35,7 @@ const Messages = () => {
       )}
 
       <div className="justify-self-end">
-        <Button>
-          <Link href="/">Go Back</Link>
-        </Button>
+        <Button onClick={() => back()}>Go Back</Button>
       </div>
     </Layout>
   );
