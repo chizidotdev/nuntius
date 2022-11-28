@@ -16,9 +16,16 @@ import { trpc } from "src/utils/trpc";
 const Message: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
 > = ({ username }) => {
-  const { data: user, isLoading } = trpc.user.findByUsername.useQuery({
-    username,
-  });
+  const { data: user, isLoading } = trpc.user.findByUsername.useQuery(
+    {
+      username,
+    },
+    {
+      refetchInterval: 60,
+      refetchOnWindowFocus: false,
+      refetchOnMount: false,
+    }
+  );
   const { mutate: createMessage } = trpc.message.create.useMutation();
   const [value, setValue] = useState("");
   const [showLogin, setShowLogin] = useState(false);
@@ -68,9 +75,10 @@ const Message: NextPage<
             placeholder={`Leave a message for ${username} here...`}
             value={value}
             onChange={(e) => setValue(e.target.value)}
+            required
           />
           <div className="mt-5" />
-          <Button>Send Message</Button>
+          <Button type="submit">Send Message</Button>
         </form>
 
         <p className="mt-8">

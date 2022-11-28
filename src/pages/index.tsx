@@ -8,9 +8,10 @@ import { HiOutlineArrowLongRight } from "react-icons/hi2";
 import { IoMdCopy } from "react-icons/io";
 import { useRouter } from "next/router";
 import { signOut } from "next-auth/react";
+import Loader from "@components/loader";
 
 const Home: NextPage = () => {
-  const { user, usernameIsUndefined } = useUser();
+  const { user, usernameIsUndefined, isLoading } = useUser();
   const { push } = useRouter();
 
   if (usernameIsUndefined) {
@@ -28,15 +29,21 @@ const Home: NextPage = () => {
 
   return (
     <Layout title="Home">
-      <h1 className="text-4xl font-bold">{user?.username}&apos;s profile</h1>
+      {isLoading && <Loader />}
+
+      {!isLoading && (
+        <h1 className="text-4xl font-bold">{user?.username}&apos;s profile</h1>
+      )}
 
       <div className="flex flex-col items-center gap-1">
-        <p
-          onClick={handleCopy}
-          className="flex cursor-pointer items-center gap-2"
-        >
-          {profileUrl} <IoMdCopy />
-        </p>
+        {!isLoading && (
+          <p
+            onClick={handleCopy}
+            className="flex cursor-pointer items-center gap-2"
+          >
+            {profileUrl} <IoMdCopy />
+          </p>
+        )}
         <p>
           <strong>Share your profile link ❤️ </strong>
           to get responses from your friends. Go to

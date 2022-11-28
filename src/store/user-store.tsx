@@ -11,11 +11,13 @@ type TUserProps = {
 type UserContextProps = {
   user?: TUser;
   usernameIsUndefined: boolean;
+  isLoading: boolean;
 };
 
 const UserContext = createContext<UserContextProps>({
   user: null,
   usernameIsUndefined: false,
+  isLoading: true,
 });
 
 export const UserProvider = ({ children, session }: TUserProps) => {
@@ -23,7 +25,11 @@ export const UserProvider = ({ children, session }: TUserProps) => {
     {
       id: session?.user?.id || "",
     },
-    { refetchOnWindowFocus: false }
+    {
+      refetchInterval: 60,
+      refetchOnWindowFocus: false,
+      refetchOnMount: false,
+    }
   );
   const usernameIsUndefined =
     typeof window !== "undefined" && !isLoading && !user?.username;
@@ -31,7 +37,7 @@ export const UserProvider = ({ children, session }: TUserProps) => {
   useMemo(() => user?.messages.reverse(), [user]);
 
   return (
-    <UserContext.Provider value={{ user, usernameIsUndefined }}>
+    <UserContext.Provider value={{ user, usernameIsUndefined, isLoading }}>
       {children}
     </UserContext.Provider>
   );

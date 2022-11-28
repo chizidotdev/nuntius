@@ -5,6 +5,7 @@ import type { VariantProps } from "class-variance-authority";
 type Props = VariantProps<typeof buttonStyles> & {
   children: React.ReactNode;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  type?: "button" | "submit" | "reset";
 };
 
 const buttonStyles = cva(
@@ -29,9 +30,9 @@ const buttonStyles = cva(
   }
 );
 
-const Button = ({ children, intent, size, onClick }: Props) => {
+const Button = ({ children, intent, size, ...props }: Props) => {
   return (
-    <button className={buttonStyles({ intent, size })} onClick={onClick}>
+    <button className={buttonStyles({ intent, size })} {...props}>
       {children}
     </button>
   );
