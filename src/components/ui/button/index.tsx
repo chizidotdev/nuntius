@@ -4,6 +4,7 @@ import type { VariantProps } from "class-variance-authority";
 
 type Props = VariantProps<typeof buttonStyles> & {
   children: React.ReactNode;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
 };
 
 const buttonStyles = cva(
@@ -27,8 +28,12 @@ const buttonStyles = cva(
   }
 );
 
-const Button = ({ children, intent, size }: Props) => {
-  return <button className={buttonStyles({ intent, size })}>{children}</button>;
+const Button = ({ children, intent, size, onClick }: Props) => {
+  return (
+    <button className={buttonStyles({ intent, size })} onClick={onClick}>
+      {children}
+    </button>
+  );
 };
 
 export default Button;
