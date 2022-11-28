@@ -1,3 +1,4 @@
+import type { TUser } from "@router/user";
 import type { Session } from "next-auth";
 import React, { createContext, useContext } from "react";
 import { trpc } from "src/utils/trpc";
@@ -8,7 +9,7 @@ type TUserProps = {
 };
 
 type UserContextProps = {
-  user: any;
+  user?: TUser;
 };
 
 const UserContext = createContext<UserContextProps>({
