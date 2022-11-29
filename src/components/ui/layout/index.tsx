@@ -1,7 +1,6 @@
 import Head from "next/head";
 import Link from "next/link";
 import React from "react";
-import Button from "@ui/button";
 
 type Props = {
   title: string;
