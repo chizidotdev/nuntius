@@ -1,5 +1,7 @@
 import Head from "next/head";
+import Link from "next/link";
 import React from "react";
+import Button from "@ui/button";
 
 type Props = {
   title: string;
@@ -24,7 +26,10 @@ const Layout = ({ children, title }: Props) => {
       </div>
 
       <footer className="flex flex-col items-center justify-center bg-dark py-6 text-sm text-white">
-        <p>&copy; {currentYear} - Nuntius</p>
+        <div className="flex items-center gap-3">
+          <Link href="/">Home</Link>
+          <p>&copy; {currentYear} - Nuntius</p>
+        </div>
         <p>
           Built by{" "}
           <a
