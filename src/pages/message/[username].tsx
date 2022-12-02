@@ -21,7 +21,6 @@ const Message: NextPage<
       username,
     },
     {
-      refetchInterval: 60,
       refetchOnWindowFocus: false,
       refetchOnMount: false,
     }
