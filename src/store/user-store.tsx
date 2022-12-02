@@ -26,7 +26,6 @@ export const UserProvider = ({ children, session }: TUserProps) => {
       id: session?.user?.id || "",
     },
     {
-      refetchInterval: 60,
       refetchOnWindowFocus: false,
       refetchOnMount: false,
     }
