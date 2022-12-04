@@ -6,7 +6,9 @@
   "private": "true",
   "license": "MIT",
   "devDependencies": {
-    "lerna": "^6.1.0"
+    "lerna": "^6.1.0",
+    "nx": "15.2.4",
+    "@nrwl/nx-cloud": "latest"
   },
   "workspaces": [
     "packages/*"
