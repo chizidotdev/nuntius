@@ -2,10 +2,13 @@
   "name": "chizidotdev",
   "version": "1.0.0",
   "main": "index.js",
-  "repository": "git@github.com:chizidotdev/nuntius.git",
-  "author": "chiziivictor <chizivwokoma@gmail.com>",
+  "author": "chizidotdev",
+  "private": "true",
   "license": "MIT",
   "devDependencies": {
     "lerna": "^6.1.0"
-  }
+  },
+  "workspaces": [
+    "packages/*"
+  ]
 }
