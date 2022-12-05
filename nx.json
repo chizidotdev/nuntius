@@ -16,7 +16,21 @@
       "outputs": [
         "{projectRoot}/.next"
       ]
+    },
+    "test": {
+      "inputs": [
+        "default",
+        "^default",
+        "{workspaceRoot}/jest.preset.js"
+      ]
+    },
+    "lint": {
+      "inputs": [
+        "default",
+        "{workspaceRoot}/.eslintrc.json"
+      ]
     }
   },
-  "defaultBase": "main"
+  "defaultBase": "main",
+  "defaultProject": "api"
 }
