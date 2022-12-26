@@ -1,0 +1,27 @@
+.input {
+  @apply relative mb-4 w-full transition-all duration-300 ease-in-out;
+}
+
+.input::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -0.5rem;
+  height: 2px;
+
+  @apply w-full bg-liver;
+}
+
+.input::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -0.5rem;
+  height: 2px;
+
+  @apply w-0 bg-dark;
+}
+
+.input::after:hover {
+  @apply w-full;
+}
