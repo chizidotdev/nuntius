@@ -1,3 +1,4 @@
+import "./index.css"
 import * as React from 'react'
 import Button from "./button";
 import Input from "./input";

@@ -1,5 +1,5 @@
-import React from "react";
 import styles from "./textarea.module.css";
+import React from "react";
 
 type Props = React.ComponentPropsWithoutRef<"textarea"> & {
   name: string;
@@ -8,7 +8,7 @@ type Props = React.ComponentPropsWithoutRef<"textarea"> & {
 
 const Textarea = (props: Props) => {
   return (
-    <div className={styles.textarea}>
+    <div className="textarea">
       <textarea
         {...props}
         className="w-full border-transparent bg-transparent focus:outline-none"

@@ -1,5 +1,5 @@
-import React from "react";
 import styles from "./input.module.css";
+import React from "react";
 
 type Props = React.ComponentPropsWithoutRef<"input"> & {
   name: string;
